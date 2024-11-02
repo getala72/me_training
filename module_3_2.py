@@ -70,3 +70,28 @@ send_email('messagje','university.help@gmail.com')
 send_email('messagje','universi@.com')
 send_email('messagje','universi@.co')
 send_email('messagje','universi.com')
+
+
+
+def send_email(message, recipient, sender="university.help@gmail.com"):
+    correct_domen = ('.com', '.ru', '.net')
+    valid = recipient.endswith(correct_domen, -4) == sender.endswith(correct_domen, -4)
+    if recipient.count('@') == 1 and sender.count('@') == 1:
+        if valid is not True:
+            print(f'Невозможно отправить письмо с адреса {sender} на адрес {recipient}')
+        elif recipient == sender:
+            print('Нельзя отправить письмо самому себе!')
+        elif sender == 'university.help@gmail.com':
+            print(f'Письмо успешно отправлено с адреса {sender} на адрес {recipient}.')
+        else:
+            print(f'НЕСТАНДАРТНЫЙ ОТПРАВИТЕЛЬ! Письмо отправлено с адреса {sender} на адрес {recipient}.')
+    else:
+        print(f'Невозможно отправить письмо с адреса {sender} на адрес {recipient}')
+
+
+send_email('Это сообщение для проверки связи', 'vasyok1337@gmail.com')
+send_email('Вы видите это сообщение как лучший студент курса!', 'urban.fan@mail.ru', sender='urban.info@gmail.com')
+send_email('Пожалуйста, исправьте задание', 'urban.student@mail.ru', sender='urban.teacher@mail.uk')
+send_email('Напоминаю самому себе о вебинаре', 'urban.teacher@mail.ru', sender='urban.teacher@mail.ru')
+
+
