@@ -55,43 +55,29 @@ send_email('Напоминаю самому себе о вебинаре', 'urba
 '''
 
 
-def send_email(message, recipient,sender = "university.help@gmail.com"):
-    if ("@" and (".com" or ".ru" or ".net")) not in (recipient or sender) or ("@" or (".com" or ".ru" or ".net")) not in (recipient or sender):
+def send_email(message, recipient, *, sender="university.help@gmail.com"):
+    valid_domains = ('.com', '.ru', '.net')
+    
+    # Проверка корректности email
+    if "@" not in recipient or not recipient.endswith(valid_domains) or \
+       "@" not in sender or not sender.endswith(valid_domains):
         print(f"Невозможно отправить письмо с адреса {sender} на адрес {recipient}")
+    
+    # Проверка на отправку самому себе
     elif recipient == sender:
         print("Нельзя отправить письмо самому себе!")
+    
+    # Проверка на отправителя по умолчанию
     elif sender == "university.help@gmail.com":
         print(f"Письмо успешно отправлено с адреса {sender} на адрес {recipient}.")
-    elif sender != "university.help@gmail.com":
+    
+    # Обработка нестандартного отправителя
+    else:
         print(f"НЕСТАНДАРТНЫЙ ОТПРАВИТЕЛЬ! Письмо отправлено с адреса {sender} на адрес {recipient}.")
 
-send_email('messagje','university.help@gmail.com','@.com')
-send_email('messagje','university.help@gmail.com')
-send_email('messagje','universi@.com')
-send_email('messagje','universi@.co')
-send_email('messagje','universi.com')
-
-
-
-def send_email(message, recipient, sender="university.help@gmail.com"):
-    correct_domen = ('.com', '.ru', '.net')
-    valid = recipient.endswith(correct_domen, -4) == sender.endswith(correct_domen, -4)
-    if recipient.count('@') == 1 and sender.count('@') == 1:
-        if valid is not True:
-            print(f'Невозможно отправить письмо с адреса {sender} на адрес {recipient}')
-        elif recipient == sender:
-            print('Нельзя отправить письмо самому себе!')
-        elif sender == 'university.help@gmail.com':
-            print(f'Письмо успешно отправлено с адреса {sender} на адрес {recipient}.')
-        else:
-            print(f'НЕСТАНДАРТНЫЙ ОТПРАВИТЕЛЬ! Письмо отправлено с адреса {sender} на адрес {recipient}.')
-    else:
-        print(f'Невозможно отправить письмо с адреса {sender} на адрес {recipient}')
-
-
+# Примеры вызовов функции
 send_email('Это сообщение для проверки связи', 'vasyok1337@gmail.com')
 send_email('Вы видите это сообщение как лучший студент курса!', 'urban.fan@mail.ru', sender='urban.info@gmail.com')
 send_email('Пожалуйста, исправьте задание', 'urban.student@mail.ru', sender='urban.teacher@mail.uk')
 send_email('Напоминаю самому себе о вебинаре', 'urban.teacher@mail.ru', sender='urban.teacher@mail.ru')
-
 
