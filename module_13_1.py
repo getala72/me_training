@@ -9,27 +9,31 @@
 import asyncio
 
 
-async def start_strongman(name:str, power:int):
+async def start_strongman(name, power):
     '''
     name - имя силача
     power - подъёмная мощность
     '''
     print(f'Силач {name} начал соревнования')
-    ssleep=1/power
-    for i in range(1,6):
-        await asyncio.sleep(ssleep)
-        print(f'Силач {'имя силача'} поднял {i}')
-    print(f'Силач {name} закончил соревнования')
+    for i in range(5):
+        await asyncio.sleep(1 / power)
+        print(f'Силач {name} поднял {i + 1} шар')
+    print(f'Силач {name} закончил соревнования.')
+
+
 async def start_tournament():
-    d=asyncio.create_task(start_strongman('Паша',5))
-    t=asyncio.create_task(start_strongman('Петя',8))
-    j=asyncio.create_task(start_strongman('Вася',9))
-    await d
-    await t
-    await j
-asyncio.run(start_tournament())
+    '''Имитация соревнований по поднятию шаров Атласа'''
+    task1 = asyncio.create_task(start_strongman('Pasha', 3))
+    task2 = asyncio.create_task(start_strongman('Denis', 4))
+    task3 = asyncio.create_task(start_strongman('Apollon', 5))
+    await task1
+    await task2
+    await task3
 
 
+if __name__ == '__main__':
+    
+    asyncio.run(start_tournament())
 
 
 
